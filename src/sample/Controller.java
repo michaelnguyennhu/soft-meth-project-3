@@ -32,7 +32,6 @@ public class Controller {
     private static final int SET = 2;
 
 
-
     private float rate;
     private float salary;
 
@@ -95,6 +94,11 @@ public class Controller {
     @FXML
     private TextField salaryField;
 
+    @FXML
+    private AnchorPane hoursWorkedPane;
+    @FXML
+    private TextField hoursField;
+
 
     public void start(Stage primaryStage) throws Exception {
         company = new Company();
@@ -107,6 +111,7 @@ public class Controller {
         hourlyRate.setVisible(false);
         managementTypePane.setVisible(false);
         salaryPane.setVisible(false);
+        hoursWorkedPane.setVisible(false);
     }
 
     public void quit(){
@@ -133,13 +138,24 @@ public class Controller {
         }
         else if (setButton.isSelected()){
             System.out.println("set");
+            command = SET;
             setButton.setSelected(false);
+            firstSet.setVisible(false);
+            chooseDepartment.setVisible(true);
+
 
         }
         else if (calcButton.isSelected()){
             System.out.println("calc");
             calcButton.setSelected(false);
 
+            if (company.isEmpty()){
+                //output "employee database is empty"
+            }
+            else {
+                company.processPayments();
+                //output "calculation of employee payments is done"
+            }
         }
     }
 
@@ -174,13 +190,22 @@ public class Controller {
             if (command == ADD) {
                 basicInfo.setVisible(false);
                 whichAdd.setVisible(true);
-                nameField.clear();
-                dateField.clear();
             }
             else if (command == REMOVE){
                 basicInfo.setVisible(false);
+                employee = new Employee(profile);
+                company.remove(employee); // this line needs to output if the employee was removed
+                basicInfo.setVisible(false);
+                firstSet.setVisible(true);
 
+                company.print();
             }
+            else if (command == SET){
+                basicInfo.setVisible(false);
+                hoursWorkedPane.setVisible(true);
+            }
+            nameField.clear();
+            dateField.clear();
         }
         else if (profile.isNameValid() == false){
             nameField.setText("Name is invalid");
@@ -279,5 +304,44 @@ public class Controller {
         }
     }
 
+    public void setHours(){
+        int hours = Integer.parseInt(hoursField.getText());
+        if (hours < 0){
+            hoursField.setText("Hours cannot be negative");
+        }
+        else if (hours > 100){
+            hoursField.setText("Amount of hours cannot exceed 100 per pay period");
+        }
+        else {
+            Parttime parttime = new Parttime(profile, 0);
+            parttime.setHours(hours);
+            company.setHours(parttime); //check if the hours have been set and output something
+            hoursField.clear();
+            hoursWorkedPane.setVisible(false);
+            firstSet.setVisible(true);
+            company.print();
+
+        }
+    }
+
+    public void printEmployees(){
+
+    }
+
+    public void printByDepartment(){
+
+    }
+
+    public void printByDate(){
+
+    }
+
+    public void importDatabase(){
+
+    }
+
+    public void exportDatabase(){
+
+    }
 
 }
