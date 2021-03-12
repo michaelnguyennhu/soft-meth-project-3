@@ -251,11 +251,15 @@ public class Controller
                 {
                     basicInfo.setVisible(false);
                     employee = new Employee(profile);
-                    company.remove(employee); // this line needs to output if the employee was removed
+                    if (company.remove(employee)){
+                        print("Employee was removed");
+                    }
+                    else {
+                        print("Employee could not be removed");
+                    }
                     basicInfo.setVisible(false);
                     firstSet.setVisible(true);
 
-                    company.print();
                 } else if ( command == SET )
                 {
                     basicInfo.setVisible(false);
@@ -321,6 +325,7 @@ public class Controller
             } catch ( Exception e )
             {
                 print("Hourly rate must be a number");
+                return;
             }
             if ( rate < 0 )
             {
@@ -335,7 +340,7 @@ public class Controller
                 firstSet.setVisible(true);
 
 
-                company.print();
+
             }
         } catch ( Exception e )
         {
@@ -378,7 +383,13 @@ public class Controller
     {
         try
         {
-            salary = Float.parseFloat(salaryField.getText());
+            try {
+                salary = Float.parseFloat(salaryField.getText());
+            }
+            catch (Exception e){
+                print("Salary must be a number");
+                return;
+            }
             if ( salary < 0 )
             {
                 print("Fulltime annual salary cannot be negative");
@@ -407,7 +418,14 @@ public class Controller
     {
         try
         {
-            int hours = Integer.parseInt(hoursField.getText());
+            int hours;
+            try {
+                hours = Integer.parseInt(hoursField.getText());
+            }
+            catch (Exception e){
+                print("Hours must be a number");
+                return;
+            }
             if ( hours < 0 )
             {
                 print("Hours cannot be negative");
@@ -422,7 +440,7 @@ public class Controller
                 hoursField.clear();
                 hoursWorkedPane.setVisible(false);
                 firstSet.setVisible(true);
-                company.print();
+
 
             }
         } catch ( Exception e )
