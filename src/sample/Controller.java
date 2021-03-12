@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -14,7 +15,9 @@ import javafx.scene.control.RadioButton;
 
 public class Controller {
 
-    public Company company;
+    private Company company;
+    private String currentOutput;
+
     private static final String ECE = "ECE";
     private static final String IT = "IT";
     private static final String CS = "CS";
@@ -98,6 +101,9 @@ public class Controller {
     private AnchorPane hoursWorkedPane;
     @FXML
     private TextField hoursField;
+
+    @FXML
+    private TextArea outputText;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -344,4 +350,12 @@ public class Controller {
 
     }
 
+
+    public void print(String string){
+        if (!currentOutput.isEmpty()){
+            currentOutput += "\n";
+        }
+        currentOutput += string;
+        outputText.setText(currentOutput);
+    }
 }
