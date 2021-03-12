@@ -21,10 +21,25 @@ public class Controller {
     private String department;
     private Profile profile;
     private Employee employee;
+    private boolean isManagement;
+    private int managementType;
+    private static final int MANAGER = 1;
+    private static final int DEPARTMENT_HEAD = 2;
+    private static final int DIRECTOR = 3;
+    private int command;
+    private static final int ADD = 0;
+    private static final int REMOVE = 1;
+    private static final int SET = 2;
+
+
+
+    private float rate;
+    private float salary;
 
     private Stage primaryStage;
 
-
+    @FXML
+    private AnchorPane firstSet;
     @FXML
     private RadioButton addButton;
     @FXML
@@ -32,11 +47,8 @@ public class Controller {
     @FXML
     private RadioButton setButton;
     @FXML
-    private RadioButton reorderButton;
-    @FXML
     private RadioButton calcButton;
-    @FXML
-    private AnchorPane firstSet;
+
 
     @FXML
     private AnchorPane chooseDepartment;
@@ -48,35 +60,53 @@ public class Controller {
     private RadioButton ECEButton;
 
     @FXML
+    private AnchorPane basicInfo;
+    @FXML
     private TextField nameField;
     @FXML
     private TextField dateField;
-    @FXML
-    private AnchorPane basicInfo;
 
+    @FXML
+    private AnchorPane whichAdd;
     @FXML
     private RadioButton addPartTime;
     @FXML
     private RadioButton addFullTime;
     @FXML
     private RadioButton addManagement;
-    @FXML
-    private AnchorPane whichAdd;
+
 
     @FXML
     private AnchorPane hourlyRate;
     @FXML
     private TextField hourlyRateField;
 
+    @FXML
+    private AnchorPane managementTypePane;
+    @FXML
+    private RadioButton addManagerButton;
+    @FXML
+    private RadioButton addDepHeadButton;
+    @FXML
+    private RadioButton addDirectorButton;
+
+    @FXML
+    private AnchorPane salaryPane;
+    @FXML
+    private TextField salaryField;
+
 
     public void start(Stage primaryStage) throws Exception {
         company = new Company();
 
         this.primaryStage = primaryStage;
+
         chooseDepartment.setVisible(false);
         basicInfo.setVisible(false);
         whichAdd.setVisible(false);
         hourlyRate.setVisible(false);
+        managementTypePane.setVisible(false);
+        salaryPane.setVisible(false);
     }
 
     public void quit(){
@@ -88,6 +118,7 @@ public class Controller {
     public void firstChoice(){
         if (addButton.isSelected()){
             System.out.println("add");
+            command = ADD;
             addButton.setSelected(false);
             firstSet.setVisible(false);
             chooseDepartment.setVisible(true);
@@ -95,17 +126,14 @@ public class Controller {
         }
         else if (removeButton.isSelected()){
             System.out.println("remove");
+            command = REMOVE;
             removeButton.setSelected(false);
-
+            firstSet.setVisible(false);
+            chooseDepartment.setVisible(true);
         }
         else if (setButton.isSelected()){
             System.out.println("set");
             setButton.setSelected(false);
-
-        }
-        else if (reorderButton.isSelected()){
-            System.out.println("reorder");
-            reorderButton.setSelected(false);
 
         }
         else if (calcButton.isSelected()){
@@ -119,17 +147,20 @@ public class Controller {
     public void departmentChoice(){
         if (CSButton.isSelected()){
             department = CS;
+            CSButton.setSelected(false);
             chooseDepartment.setVisible(false);
             basicInfo.setVisible(true);
         }
         else if (ITButton.isSelected()){
             department = IT;
+            ITButton.setSelected(false);
             chooseDepartment.setVisible(false);
             basicInfo.setVisible(true);
 
         }
         else if (ECEButton.isSelected()){
             department = ECE;
+            ECEButton.setSelected(false);
             chooseDepartment.setVisible(false);
             basicInfo.setVisible(true);
         }
@@ -140,10 +171,16 @@ public class Controller {
 
         profile = new Profile(nameField.getText(), department, new Date(dateField.getText()));
         if (profile.isNameValid() && profile.getDateHired().isValid()){
-            basicInfo.setVisible(false);
-            whichAdd.setVisible(true);
-            nameField.clear();
-            dateField.clear();
+            if (command == ADD) {
+                basicInfo.setVisible(false);
+                whichAdd.setVisible(true);
+                nameField.clear();
+                dateField.clear();
+            }
+            else if (command == REMOVE){
+                basicInfo.setVisible(false);
+
+            }
         }
         else if (profile.isNameValid() == false){
             nameField.setText("Name is invalid");
@@ -159,22 +196,30 @@ public class Controller {
     public void addChoice(){
         if (addPartTime.isSelected()){
             System.out.println("part time employee");
+            addPartTime.setSelected(false);
             whichAdd.setVisible(false);
             hourlyRate.setVisible(true);
         }
         else if (addFullTime.isSelected()){
             System.out.println("full time employee");
+            isManagement = false;
+            addFullTime.setSelected(false);
+            whichAdd.setVisible(false);
+            salaryPane.setVisible(true);
 
         }
         else if (addManagement.isSelected()){
             System.out.println("management employee");
-
+            isManagement = true;
+            addManagement.setSelected(false);
+            whichAdd.setVisible(false);
+            managementTypePane.setVisible(true);
         }
     }
 
     //action event to set the hourly rate of a part time worker and add the employee to the company
     public void setHourlyRate(){
-        float rate = Float.parseFloat(hourlyRateField.getText());
+        rate = Float.parseFloat(hourlyRateField.getText());
         if (rate < 0){
             hourlyRateField.setText("Parttime hourly rate cannot be negative");
         }
@@ -188,6 +233,49 @@ public class Controller {
 
 
             company.print();
+        }
+    }
+
+    //action event to select management type
+    public void selectManagement(){
+        if (addManagerButton.isSelected()){
+            managementType = MANAGER;
+            addManagerButton.setSelected(false);
+            managementTypePane.setVisible(false);
+            salaryPane.setVisible(true);
+        }
+        else if (addDepHeadButton.isSelected()){
+            managementType = DEPARTMENT_HEAD;
+            addDepHeadButton.setSelected(false);
+            managementTypePane.setVisible(false);
+            salaryPane.setVisible(true);
+        }
+        else if (addDirectorButton.isSelected()){
+            managementType = DIRECTOR;
+            addDirectorButton.setSelected(false);
+            managementTypePane.setVisible(false);
+            salaryPane.setVisible(true);
+        }
+    }
+
+    //action event to set the salary for a full time worker
+    public void setSalary(){
+        salary = Float.parseFloat(salaryField.getText());
+        if (salary < 0){
+            salaryField.setText("Fulltime annual salary cannot be negative");
+        }
+        else {
+            if (isManagement == false) {
+                employee = new Fulltime(profile, salary);
+            }
+            else {
+                employee = new Management(profile, salary, managementType);
+            }
+
+            company.add(employee);
+            salaryField.clear();
+            salaryPane.setVisible(false);
+            firstSet.setVisible(true);
         }
     }
 
