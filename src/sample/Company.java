@@ -1,5 +1,7 @@
 package sample;
 
+import javax.naming.ldap.Control;
+
 /**
  * Manages and stores all supplied employees
  *
@@ -238,7 +240,7 @@ public class Company
     {
         for ( int i = 0; i < numEmployee; i++ )
         {
-            System.out.println(emplist[i].toString());
+            Controller.print(emplist[i].toString());
         }
     }
 
@@ -251,11 +253,11 @@ public class Company
 
         if ( numEmployee == 0 )
         {
-            System.out.println("Employee database is empty.");
+            Controller.print("Employee database is empty.");
             return;
         }
 
-        System.out.println("--Printing earning statements for all employees--");
+        Controller.print("--Printing earning statements for all employees--");
         printAll();
     }
 
@@ -267,12 +269,12 @@ public class Company
 
         if ( numEmployee == 0 )
         {
-            System.out.println("Employee database is empty.");
+            Controller.print("Employee database is empty.");
             return;
         }
 
         sort(0);
-        System.out.println("--Printing earning statements by department--");
+        Controller.print("--Printing earning statements by department--");
         printAll();
 
     }
@@ -285,12 +287,12 @@ public class Company
 
         if ( numEmployee == 0 )
         {
-            System.out.println("Employee database is empty.");
+            Controller.print("Employee database is empty.");
             return;
         }
 
         sort(1);
-        System.out.println("--Printing earning statements by date hired--");
+        Controller.print("--Printing earning statements by date hired--");
         printAll();
 
     }

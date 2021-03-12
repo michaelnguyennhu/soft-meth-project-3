@@ -3,11 +3,14 @@ package sample;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +18,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.RadioButton;
 
+import java.io.File;
+
 public class Controller {
+
+    public static Controller _instance;
 
     private Company company;
     private String currentOutput = "";
@@ -130,7 +137,6 @@ public class Controller {
     //first select button action event
     public void firstChoice(){
         if (addButton.isSelected()){
-            System.out.println("add");
             command = ADD;
             addButton.setSelected(false);
             firstSet.setVisible(false);
@@ -138,21 +144,18 @@ public class Controller {
 
         }
         else if (removeButton.isSelected()){
-            System.out.println("remove");
             command = REMOVE;
             removeButton.setSelected(false);
             firstSet.setVisible(false);
             chooseDepartment.setVisible(true);
         }
         else if (setButton.isSelected()){
-            System.out.println("set");
             command = SET;
             setButton.setSelected(false);
             firstSet.setVisible(false);
             chooseDepartment.setVisible(true);
         }
         else if (calcButton.isSelected()){
-            System.out.println("calc");
             calcButton.setSelected(false);
 
             if (company.isEmpty()){
@@ -228,13 +231,11 @@ public class Controller {
     //action event to choose which type of employee to add
     public void addChoice(){
         if (addPartTime.isSelected()){
-            System.out.println("part time employee");
             addPartTime.setSelected(false);
             whichAdd.setVisible(false);
             hourlyRate.setVisible(true);
         }
         else if (addFullTime.isSelected()){
-            System.out.println("full time employee");
             isManagement = false;
             addFullTime.setSelected(false);
             whichAdd.setVisible(false);
@@ -242,7 +243,6 @@ public class Controller {
 
         }
         else if (addManagement.isSelected()){
-            System.out.println("management employee");
             isManagement = true;
             addManagement.setSelected(false);
             whichAdd.setVisible(false);
@@ -338,35 +338,70 @@ public class Controller {
     }
 
     public void printEmployees(){
-
+        company.print();
     }
 
     public void printByDepartment(){
-
+        company.printByDepartment();
     }
 
     public void printByDate(){
-
+        company.printByDate();
     }
 
-    public void importDatabase(){
+    public void importDatabase(ActionEvent action){
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select database to import");
 
-    }
+        Stage stage = (Stage)(( Node ) action.getSource()).getScene().getWindow();
+        File file = chooser.showOpenDialog(stage);
 
-    public void exportDatabase(){
-
-    }
-
-
-
-    public void print(String string){
-
-        if (!currentOutput.isEmpty()){
-            currentOutput += "\n";
+        if(file == null){
+            print("Import aborted");
+            return;
         }
-        currentOutput += string;
-        outputText.setText(currentOutput);
-        outputText.positionCaret(outputText.getLength());
+
+        DatabaseUtility.Import(file, company);
+    }
+
+    public void exportDatabase(ActionEvent action){
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select database export file");
+
+        Stage stage = (Stage)(( Node ) action.getSource()).getScene().getWindow();
+
+        File file = chooser.showSaveDialog(stage);
+
+        if(file == null){
+            print("Export aborted");
+            return;
+        }
+
+        DatabaseUtility.Export(file, company);
+    }
+
+
+
+    public static void print(String string){
+        if(_instance == null) return;
+
+        if (!_instance.currentOutput.isEmpty()){
+            _instance.currentOutput += "\n";
+        }
+        _instance.currentOutput += string;
+        _instance.outputText.setText(_instance.currentOutput);
+        _instance.outputText.positionCaret(_instance.outputText.getLength());
+    }
+
+    public static void printError(String string){
+        if(_instance == null) return;
+
+        if (!_instance.currentOutput.isEmpty()){
+            _instance.currentOutput += "\n";
+        }
+        _instance.currentOutput += "Error: " + string;
+        _instance.outputText.setText(_instance.currentOutput);
+        _instance.outputText.positionCaret(_instance.outputText.getLength());
     }
 
 }

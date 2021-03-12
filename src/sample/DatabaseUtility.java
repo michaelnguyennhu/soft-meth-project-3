@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.scene.control.Control;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,14 +10,15 @@ import java.util.Scanner;
 public class DatabaseUtility
 {
 
-    public static String Import(File file, Company company){
+    public static void Import(File file, Company company){
         Scanner fileReader;
         try
         {
             fileReader = new Scanner(file);
         } catch ( FileNotFoundException e )
         {
-            return "Failed to open file";
+            Controller.printError("Failed to open file");
+            return;
         }
 
         int currentLine = 0;
@@ -27,17 +30,19 @@ public class DatabaseUtility
             try{
                 Employee newEmployee = Parse(line);
                 if(newEmployee == null){
-                    return "Invalid employee line at " + currentLine + " - '"+line+"'";
+                    Controller.printError("Invalid employee line at " + currentLine + " - '"+line+"'");
+                    return;
                 }
                 company.add(newEmployee);
             }catch(Exception e){
-                return "Invalid employee line at " + currentLine + " - '"+line+"'";
+                Controller.printError("Invalid employee line at " + currentLine + " - '"+line+"'");
+                return;
             }
 
 
         }
 
-        return "Successfully imported data!";
+        Controller.print( "Successfully imported data!");
     }
 
     public static Employee Parse(String line){
@@ -92,12 +97,12 @@ public class DatabaseUtility
         return null;
     }
 
-    public static String Export(File file, Company company){
+    public static void Export(File file, Company company){
         if(!file.exists()){
             try{
                 file.createNewFile();
             }catch(Exception e){
-                return "Failed to create new file";
+                Controller.printError( "Failed to create new file");
             }
         }
 
@@ -106,10 +111,10 @@ public class DatabaseUtility
 
             fileWriter.write(company.exportDatabase());
         }catch(Exception e){
-            return "Failed to write to file";
+            Controller.printError( "Failed to write to file");
         }
 
-        return "Successfully exported!";
+        Controller.printError( "Successfully exported!");
     }
 
 }
