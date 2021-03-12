@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -16,7 +18,7 @@ import javafx.scene.control.RadioButton;
 public class Controller {
 
     private Company company;
-    private String currentOutput;
+    private String currentOutput = "";
 
     private static final String ECE = "ECE";
     private static final String IT = "IT";
@@ -148,8 +150,6 @@ public class Controller {
             setButton.setSelected(false);
             firstSet.setVisible(false);
             chooseDepartment.setVisible(true);
-
-
         }
         else if (calcButton.isSelected()){
             System.out.println("calc");
@@ -157,10 +157,12 @@ public class Controller {
 
             if (company.isEmpty()){
                 //output "employee database is empty"
+                print("Employee database is empty");
             }
             else {
                 company.processPayments();
                 //output "calculation of employee payments is done"
+                print("Calculation of employee payments is done");
             }
         }
     }
@@ -213,11 +215,11 @@ public class Controller {
             nameField.clear();
             dateField.clear();
         }
-        else if (profile.isNameValid() == false){
-            nameField.setText("Name is invalid");
+        if (profile.isNameValid() == false){
+            print("Name is invalid");
         }
-        else if (profile.getDateHired().isValid() == false){
-            dateField.setText("Date is invalid");
+        if (profile.getDateHired().isValid() == false){
+            print("Date is invalid");
         }
 
 
@@ -250,9 +252,14 @@ public class Controller {
 
     //action event to set the hourly rate of a part time worker and add the employee to the company
     public void setHourlyRate(){
-        rate = Float.parseFloat(hourlyRateField.getText());
+        try {
+            rate = Float.parseFloat(hourlyRateField.getText());
+        }
+        catch (Exception e){
+            print("Hourly rate must be a number");
+        }
         if (rate < 0){
-            hourlyRateField.setText("Parttime hourly rate cannot be negative");
+            print("Parttime hourly rate cannot be negative");
         }
         else {
             employee = new Parttime(profile, rate);
@@ -293,7 +300,7 @@ public class Controller {
     public void setSalary(){
         salary = Float.parseFloat(salaryField.getText());
         if (salary < 0){
-            salaryField.setText("Fulltime annual salary cannot be negative");
+            print("Fulltime annual salary cannot be negative");
         }
         else {
             if (isManagement == false) {
@@ -313,10 +320,10 @@ public class Controller {
     public void setHours(){
         int hours = Integer.parseInt(hoursField.getText());
         if (hours < 0){
-            hoursField.setText("Hours cannot be negative");
+            print("Hours cannot be negative");
         }
         else if (hours > 100){
-            hoursField.setText("Amount of hours cannot exceed 100 per pay period");
+            print("Amount of hours cannot exceed 100 per pay period");
         }
         else {
             Parttime parttime = new Parttime(profile, 0);
@@ -351,11 +358,15 @@ public class Controller {
     }
 
 
+
     public void print(String string){
+
         if (!currentOutput.isEmpty()){
             currentOutput += "\n";
         }
         currentOutput += string;
         outputText.setText(currentOutput);
+        outputText.positionCaret(outputText.getLength());
     }
+
 }
