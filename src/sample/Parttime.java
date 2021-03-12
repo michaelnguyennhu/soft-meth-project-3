@@ -29,6 +29,14 @@ public class Parttime extends Employee
         this.hourlyRate = hourlyRate;
     }
 
+    /**
+     * Get hourly rate of this parttime employee
+     * @return Hourly rate in float value
+     */
+    public float getHourlyRate(){
+        return hourlyRate;
+    }
+
 
 	/**
      * Calculates the payment for part time employees and saves it as 

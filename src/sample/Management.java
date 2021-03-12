@@ -31,6 +31,15 @@ public class Management extends Fulltime
     }
 
     /**
+     * Get the role id of this management.
+     *
+     * @return ID of manager, 1-3
+     */
+    public int getRoleID(){
+        return role;
+    }
+
+    /**
      * Calculates the payment based on a fulltime salary with management compensation added.
      * Saves it into paymentAmount
      *

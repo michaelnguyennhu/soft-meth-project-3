@@ -28,6 +28,13 @@ public class Fulltime extends Employee
         this.annualSalary = annualSalary;
     }
 
+    /**
+     * Get the annual salary of this employee
+     * @return Annual salary float
+     */
+    public float getAnnualSalary(){
+        return annualSalary;
+    }
 
 	/**
      * Calculates the payment for fulltime employees and saves it as 

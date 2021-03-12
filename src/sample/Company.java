@@ -305,4 +305,31 @@ public class Company
     {
         return numEmployee == 0;
     }
+
+    /**
+     * Get the list of employees as String formatted for database consumption.
+     * @return List of all employees as String
+     */
+    public String exportDatabase(){
+        String output = "";
+
+        for(int i = 0; i < numEmployee; i++){
+            Employee employee = emplist[i];
+
+            if(employee instanceof Parttime){
+                Profile profile = employee.getProfile();
+                output += "P," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() + "," + ((Parttime) employee).getHourlyRate();
+            }else if(employee instanceof Management){
+                Profile profile = employee.getProfile();
+                output += "M," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() +"," + ((Management) employee).getAnnualSalary() + "," + ((Management) employee).getRoleID();
+            }else if(employee instanceof Fulltime){
+                Profile profile = employee.getProfile();
+                output += "F," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() + "," + ((Fulltime) employee).getAnnualSalary();
+            }
+
+            if(i + 1 < numEmployee) output += "\n";
+        }
+
+        return output;
+    }
 }
