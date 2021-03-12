@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -22,52 +23,151 @@
                   <Font name="Ebrima Bold" size="48.0" />
                </font>
             </Text>
-            <Button fx:id="quitButton" layoutX="804.0" layoutY="515.0" mnemonicParsing="false" onAction="#quit" prefHeight="36.0" prefWidth="103.0" text="Quit">
+            <Button fx:id="quitButton" layoutX="807.0" layoutY="518.0" mnemonicParsing="false" onAction="#quit" prefHeight="36.0" prefWidth="103.0" text="Quit">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font></Button>
-            <SplitPane dividerPositions="0.35446313065976714" layoutX="73.0" layoutY="132.0" prefHeight="336.0" prefWidth="775.0">
+            <SplitPane dividerPositions="0.35446313065976714" layoutX="62.0" layoutY="131.0" prefHeight="336.0" prefWidth="800.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="356.0" prefWidth="297.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="356.0" prefWidth="297.0">
                      <children>
-                        <RadioButton fx:id="addButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" text="Add Employee">
-                           <font>
-                              <Font name="Franklin Gothic Medium" size="13.0" />
-                           </font>
-                           <toggleGroup>
-                              <ToggleGroup fx:id="firstOptions" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="removeButton" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" text="Remove Employee" toggleGroup="$firstOptions">
-                           <font>
-                              <Font name="Franklin Gothic Medium" size="14.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton fx:id="setButton" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Set Hours for Part Time Employee" toggleGroup="$firstOptions">
-                           <font>
-                              <Font name="Franklin Gothic Medium" size="14.0" />
-                           </font>
-                        </RadioButton>
-                        <Button fx:id="select1" layoutX="92.0" layoutY="243.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="88.0" text="Select">
-                           <font>
-                              <Font name="Franklin Gothic Medium" size="18.0" />
-                           </font>
-                        </Button>
-                        <RadioButton fx:id="reorderButton" layoutX="14.0" layoutY="122.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="208.0" text="Reorder List" toggleGroup="$firstOptions">
-                           <font>
-                              <Font name="Franklin Gothic Medium" size="14.0" />
-                           </font>
-                        </RadioButton>
-                        <RadioButton fx:id="calcButton" layoutX="14.0" layoutY="158.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="208.0" text="Calculate" toggleGroup="$firstOptions">
-                           <font>
-                              <Font name="Franklin Gothic Medium" size="14.0" />
-                           </font>
-                        </RadioButton>
+                      <AnchorPane fx:id="firstSet" minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <RadioButton fx:id="addButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" text="Add Employee">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="firstOptions" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="removeButton" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="141.0" text="Remove Employee" toggleGroup="$firstOptions">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="setButton" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Set Hours for Part Time Employee" toggleGroup="$firstOptions">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                              <Button fx:id="select1" layoutX="92.0" layoutY="235.0" mnemonicParsing="false" onAction="#firstChoice" prefHeight="36.0" prefWidth="88.0" text="Select">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Button>
+                              <RadioButton fx:id="reorderButton" layoutX="14.0" layoutY="122.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="208.0" text="Reorder List" toggleGroup="$firstOptions">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="calcButton" layoutX="14.0" layoutY="158.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="208.0" text="Calculate" toggleGroup="$firstOptions">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="basicInfo" prefHeight="334.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TextField fx:id="nameField" layoutX="14.0" layoutY="54.0" prefHeight="36.0" prefWidth="236.0" />
+                              <Text layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LASTNAME,FIRSTNAME:" wrappingWidth="195.0">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="14.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE (MM/DD/YYYY):" wrappingWidth="195.0">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="dateField" layoutX="14.0" layoutY="121.0" prefHeight="36.0" prefWidth="236.0" />
+                              <Button fx:id="basicContinue" layoutX="81.0" layoutY="235.0" mnemonicParsing="false" onAction="#basicInfoContinue" prefHeight="36.0" prefWidth="103.0" text="Continue">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="chooseDepartment" prefHeight="334.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <RadioButton fx:id="CSButton" layoutX="14.0" layoutY="95.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="CS">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="departmentGroup" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="ITButton" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="IT" toggleGroup="$departmentGroup">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="ECEButton" layoutX="14.0" layoutY="59.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="ECE" toggleGroup="$departmentGroup">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                              <Text layoutX="38.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHOOSE DEPARTMENT" wrappingWidth="195.0">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="departmentSelect" layoutX="92.0" layoutY="235.0" mnemonicParsing="false" onAction="#departmentChoice" prefHeight="36.0" prefWidth="88.0" text="Select">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="whichAdd" minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <RadioButton fx:id="addPartTime" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Add Part Time Employee">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="addGroup" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="addFullTime" layoutX="14.0" layoutY="50.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Add Full Time Employee" toggleGroup="$addGroup">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="addManagement" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="243.0" text="Add Management" toggleGroup="$addGroup">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                              <Button fx:id="selectAdd" layoutX="92.0" layoutY="235.0" mnemonicParsing="false" onAction="#addChoice" prefHeight="36.0" prefWidth="88.0" text="Select">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="hourlyRate" prefHeight="334.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text layoutX="43.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set Hourly Rate" textAlignment="CENTER" wrappingWidth="195.0">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="hourlyRateField" layoutX="23.0" layoutY="113.0" prefHeight="36.0" prefWidth="236.0" />
+                              <Button fx:id="setHourlyRateButton" layoutX="71.0" layoutY="167.0" mnemonicParsing="false" onAction="#setHourlyRate" prefHeight="36.0" prefWidth="141.0" text="Add Employee">
+                                 <font>
+                                    <Font name="Franklin Gothic Medium" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="334.0" prefWidth="487.0">
                      <children>
-                        <ListView prefHeight="334.0" prefWidth="496.0" />
+                        <ListView prefHeight="334.0" prefWidth="512.0" />
                      </children>
                   </AnchorPane>
               </items>
