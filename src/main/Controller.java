@@ -333,6 +333,7 @@ public class Controller
                 hourlyRateField.clear();
                 hourlyRate.setVisible(false);
                 firstSet.setVisible(true);
+                print("Parttime employee added");
 
 
 
@@ -402,6 +403,20 @@ public class Controller
                 salaryField.clear();
                 salaryPane.setVisible(false);
                 firstSet.setVisible(true);
+                if (isManagement == false){
+                    print("Fulltime employee added");
+                }
+                else {
+                    if (managementType == MANAGER){
+                        print("Manager added");
+                    }
+                    else if (managementType == DEPARTMENT_HEAD){
+                        print("Department head added");
+                    }
+                    else if (managementType == DIRECTOR){
+                        print("Director added");
+                    }
+                }
             }
         } catch ( Exception e )
         {
