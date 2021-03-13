@@ -55,8 +55,20 @@ public class DatabaseUtility
 
         if(!date.isValid()) return null;
 
-        Profile profile = new Profile(tokens[1], tokens[2], date );
-        if(!profile.isDepartmentValid()) return null;
+        String name = tokens[1].replace(' ',',');
+        String[] nameTokens = name.split(",");
+
+        if(nameTokens.length > 1){
+            name = "";
+            for(int i = 1; i < nameTokens.length; i++){
+                name += nameTokens[i] + ",";
+            }
+
+            name += nameTokens[0];
+        }
+
+        Profile profile = new Profile(name, tokens[2], date );
+        if(!profile.isDepartmentValid() || !profile.isNameValid()) return null;
 
 
         switch(tokens[0]){

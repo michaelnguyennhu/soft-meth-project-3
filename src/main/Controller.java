@@ -167,12 +167,24 @@ public class Controller
 
             } else if ( removeButton.isSelected() )
             {
+                if ( company.isEmpty() )
+                {
+                    //output "employee database is empty"
+                    print("Employee database is empty");
+                    return;
+                }
                 command = REMOVE;
                 removeButton.setSelected(false);
                 firstSet.setVisible(false);
                 chooseDepartment.setVisible(true);
             } else if ( setButton.isSelected() )
             {
+                if ( company.isEmpty() )
+                {
+                    //output "employee database is empty"
+                    print("Employee database is empty");
+                    return;
+                }
                 command = SET;
                 setButton.setSelected(false);
                 firstSet.setVisible(false);

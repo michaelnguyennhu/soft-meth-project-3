@@ -73,7 +73,8 @@ public class Company
      */
     public boolean add(Employee employee)
     {
-        if ( !(employee.getProfile().isDepartmentValid()
+        if ( !(employee.getProfile().isNameValid()
+                && employee.getProfile().isDepartmentValid()
                 && employee.getProfile().getDateHired().isValid()) )
         {
             return false;
