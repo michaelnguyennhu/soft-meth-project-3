@@ -9,8 +9,12 @@ package main;
 
 public class Parttime extends Employee
 {
-    private final float hourlyRate;
+    private float hourlyRate;
     private int hours;
+
+    private final float OVERTIME_FACTOR = 1.5f;
+    private final int MAX_HOURS = 100;
+    private final int OVERTIME_THRESHOLD = 80;
 
     /**
      * Initiates parttime employee class with profile and the hourly rate for the part time.
@@ -49,16 +53,16 @@ public class Parttime extends Employee
     @Override
     public void calculatePayment()
     {
-        if( hours < 0){
-            throw new RuntimeException("Parttime hours can not be negative");
+        if( hours < 0 || hours > MAX_HOURS){
+            throw new RuntimeException("Parttime hours must be within 0 and 100");
         }
 
-        if ( hours > 80 )
+        if ( hours > OVERTIME_THRESHOLD )
         {
-            this.paymentAmount = 80 * hourlyRate;
+            this.paymentAmount = OVERTIME_THRESHOLD * hourlyRate;
 
-            int extraHours = hours - 80;
-            this.paymentAmount += extraHours * hourlyRate * 1.5f;
+            int extraHours = hours - OVERTIME_THRESHOLD;
+            this.paymentAmount += extraHours * hourlyRate * OVERTIME_FACTOR;
         } else
         {
             this.paymentAmount = ( float ) (hours) * hourlyRate;

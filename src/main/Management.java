@@ -34,6 +34,16 @@ public class Management extends Fulltime
         this.role = managementRole;
     }
 
+
+    /**
+     * Get the role id of this management.
+     *
+     * @return ID of manager, 1-3
+     */
+    public int getRoleID(){
+        return role;
+    }
+
     /**
      * Calculates the payment based on a fulltime salary with management compensation added.
      * Saves it into paymentAmount
@@ -47,6 +57,10 @@ public class Management extends Fulltime
         this.paymentAmount += getCompensation();
     }
 
+    /**
+     * Get the compensation based on manager role type
+     * @return Amount of money for compensation
+     */
     private float getCompensation()
     {
 

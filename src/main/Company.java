@@ -13,6 +13,8 @@ public class Company
     private Employee[] emplist;
     private int numEmployee;
 
+    private final int GROWTH_AMOUNT = 4;
+
 
 	/**
      * Initiates the Company with 0 employees and an empty employee list
@@ -51,7 +53,7 @@ public class Company
      */
     private void grow()
     {
-        Employee[] increasedArr = new Employee[emplist.length + 4];
+        Employee[] increasedArr = new Employee[emplist.length + GROWTH_AMOUNT];
 
         for ( int i = 0; i < emplist.length; i++ )
         {
@@ -71,8 +73,7 @@ public class Company
      */
     public boolean add(Employee employee)
     {
-        if ( !(employee.getProfile().isNameValid()
-                && employee.getProfile().isDepartmentValid()
+        if ( !(employee.getProfile().isDepartmentValid()
                 && employee.getProfile().getDateHired().isValid()) )
         {
             return false;

@@ -9,7 +9,7 @@ package main;
 
 public class Fulltime extends Employee
 {
-    private final float annualSalary;
+    private float annualSalary;
 
     /**
      * Initates a fulltime employee with a profile and annual salary.
@@ -45,7 +45,7 @@ public class Fulltime extends Employee
     @Override
     public void calculatePayment()
     {
-        this.paymentAmount = annualSalary / 26.0f;
+        this.paymentAmount = annualSalary / SALARY_PERIOD;
     }
 
 	/**

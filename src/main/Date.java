@@ -15,6 +15,8 @@ public class Date implements Comparable< Date >
     private int month;
     private int day;
 
+    private final int MIN_YEAR = 1900;
+
     /**
      * Reads date and parses it from mm/dd/yyyy format.
      *
@@ -105,7 +107,7 @@ public class Date implements Comparable< Date >
 
 
         //check if the date is within the correct boundaries
-        if ( this.year < 1900 || this.year > thisYear || (this.year == thisYear && this.month > thisMonth) || (this.year == thisYear && this.month == thisMonth && this.day > thisDay) )
+        if ( this.year < MIN_YEAR || this.year > thisYear || (this.year == thisYear && this.month > thisMonth) || (this.year == thisYear && this.month == thisMonth && this.day > thisDay) )
         {
             return false;
         }

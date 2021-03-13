@@ -107,27 +107,29 @@ public class Controller
     {
         if ( _instance == null ) return;
 
+        int prevLength = 0;
         if ( !_instance.currentOutput.isEmpty() )
         {
             _instance.currentOutput += "\n";
+            prevLength = _instance.currentOutput.length();
         }
         _instance.currentOutput += string;
         _instance.outputText.setText(_instance.currentOutput);
-        _instance.outputText.positionCaret(_instance.outputText.getLength());
-        _instance.outputText.setScrollLeft(0);
+        _instance.outputText.positionCaret(prevLength);
     }
 
     public static void printError(String string)
     {
         if ( _instance == null ) return;
-
+        int prevLength = 0;
         if ( !_instance.currentOutput.isEmpty() )
         {
             _instance.currentOutput += "\n";
+            prevLength = _instance.currentOutput.length();
         }
         _instance.currentOutput += "Error: " + string;
         _instance.outputText.setText(_instance.currentOutput);
-        _instance.outputText.positionCaret(_instance.outputText.getLength());
+        _instance.outputText.positionCaret(prevLength);
     }
 
     public void start(Stage primaryStage) throws Exception

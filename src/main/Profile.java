@@ -10,9 +10,9 @@ package main;
 
 public class Profile
 {
-    private final String name; //employees name in the form "lastname,firstname"
-    private final String department; //department code: CS, ECE, IT
-	private final Date dateHired; //the date the employee was hired
+    private final String NAME; //employees name in the form "lastname,firstname"
+    private final String DEPARTMENT; //department code: CS, ECE, IT
+	private final Date DATE_HIRED; //the date the employee was hired
 	
 
 	/**
@@ -24,9 +24,9 @@ public class Profile
      */
     public Profile(String name, String department, Date dateHired)
     {
-        this.name = name;
-        this.department = department;
-        this.dateHired = dateHired;
+        this.NAME = name;
+        this.DEPARTMENT = department;
+        this.DATE_HIRED = dateHired;
 	}
 	
 
@@ -37,7 +37,7 @@ public class Profile
      */
     public String getName()
     {
-        return this.name;
+        return this.NAME;
     }
 
 
@@ -49,7 +49,7 @@ public class Profile
      */	
     public String getDepartment()
     {
-        return this.department;
+        return this.DEPARTMENT;
     }
 
 
@@ -60,7 +60,7 @@ public class Profile
      */
     public Date getDateHired()
     {
-        return this.dateHired;
+        return this.DATE_HIRED;
     }
 
 
@@ -74,7 +74,7 @@ public class Profile
 
         //Loosely check if there is a comma somewhere in the first and last name.
         //This can lead to improper name invalidations/validations. But just for a safety check, can be used for now.
-        return name.indexOf(',') != -1;
+        return NAME.indexOf(',') != -1;
 
     }
 
@@ -87,7 +87,7 @@ public class Profile
      */
     public boolean isDepartmentValid()
     {
-        switch ( department )
+        switch ( DEPARTMENT )
         {
             case "CS":
             case "ECE":
@@ -108,7 +108,7 @@ public class Profile
     @Override
     public String toString()
     {
-        return this.name + "::" + this.department + "::" + this.dateHired.toString();
+        return this.NAME + "::" + this.DEPARTMENT + "::" + this.DATE_HIRED.toString();
 	}
 	
 
@@ -130,6 +130,6 @@ public class Profile
 
         Profile profile2 = ( Profile ) obj;
 
-        return this.name.equals(profile2.getName()) && this.department.equals(profile2.getDepartment()) && this.dateHired.compareTo(profile2.getDateHired()) == 0;
+        return this.NAME.equals(profile2.getName()) && this.DEPARTMENT.equals(profile2.getDepartment()) && this.DATE_HIRED.compareTo(profile2.getDateHired()) == 0;
     }
 }

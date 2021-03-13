@@ -14,6 +14,8 @@ public class Employee
     protected float paymentAmount;
     private Profile profile;
 
+    protected float SALARY_PERIOD = 26.0f;
+
 
 	/**
      * Initiates the Employee with the supplied Profile

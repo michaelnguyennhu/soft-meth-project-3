@@ -29,16 +29,19 @@ public class DatabaseUtility
                 Employee newEmployee = Parse(line);
                 if(newEmployee == null){
                     Controller.printError("Invalid employee line at " + currentLine + " - '"+line+"'");
+                    fileReader.close();
                     return;
                 }
                 company.add(newEmployee);
             }catch(Exception e){
                 Controller.printError("Exception - Invalid employee line at " + currentLine + " - '"+line+"'");
+                fileReader.close();
                 return;
             }
 
 
         }
+        fileReader.close();
 
         Controller.print( "Successfully imported data!");
     }
@@ -109,11 +112,16 @@ public class DatabaseUtility
             FileWriter fileWriter = new FileWriter(file, false);
 
             fileWriter.write(company.exportDatabase());
+
+            fileWriter.flush();
+            fileWriter.close();
         }catch(Exception e){
             Controller.printError( "Failed to write to file");
         }
 
-        Controller.printError( "Successfully exported!");
+
+
+        Controller.print( "Successfully exported!");
     }
 
 }
