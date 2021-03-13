@@ -12,45 +12,45 @@ import java.text.DecimalFormat;
 public class Employee
 {
     protected float paymentAmount;
-    private Profile profile;
+    private final Profile profile;
 
     protected float SALARY_PERIOD = 26.0f;
 
 
-	/**
+    /**
      * Initiates the Employee with the supplied Profile
      *
-     * @param employeeProfile              Profile for the employee
+     * @param employeeProfile Profile for the employee
      */
     public Employee(Profile employeeProfile)
     {
         this.profile = employeeProfile;
     }
 
-	/**
+    /**
      * Template function used for determining the payment amount for an employee's payroll
-	 * This function will be Overrided
+     * This function will be Overrided
      */
     public void calculatePayment()
     {
     }
 
 
-	/**
+    /**
      * Gets the Profile for the Employee
      *
-     * @return  the Profile for the Employee
+     * @return the Profile for the Employee
      */
     public Profile getProfile()
     {
         return profile;
     }
 
-	/**
+    /**
      * Converts a float to a string in the format of dollars
      *
-	 * @param   amount 		float value of dollars
-     * @return  a string in the format of dollars derived from the amount given
+     * @param amount float value of dollars
+     * @return a string in the format of dollars derived from the amount given
      */
     protected String toDollars(float amount)
     {
@@ -74,9 +74,9 @@ public class Employee
     }
 
 
-	/**
+    /**
      * Converts an employee to a formatted one line string.
-     * Format - profile::Payment Dollars 
+     * Format - profile::Payment Dollars
      *
      * @return String of Employee's data
      */
@@ -86,8 +86,8 @@ public class Employee
         return profile.toString() + "::Payment " + toDollars(paymentAmount);
     }
 
-	
-	/**
+
+    /**
      * Checks if the two employees are the same
      * Can check against any object, but will only work with the employee class.
      *

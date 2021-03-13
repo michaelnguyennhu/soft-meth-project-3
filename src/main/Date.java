@@ -62,14 +62,14 @@ public class Date implements Comparable< Date >
 
     }
 
-	/**
+    /**
      * Compares two date classes
      *
      * @param date date object that is being compared
-	 * @return there are 3 return values:
-	 * 		   0 - when the two dates are the same
-	 * 		   1 - when the date in the parameter is less than the other date
-	 * 		  -1 - when the date in the parameter is greater than the other date
+     * @return there are 3 return values:
+     * 0 - when the two dates are the same
+     * 1 - when the date in the parameter is less than the other date
+     * -1 - when the date in the parameter is greater than the other date
      */
     @Override
     public int compareTo(Date date)

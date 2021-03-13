@@ -9,19 +9,20 @@ package main;
 
 public class Fulltime extends Employee
 {
-    private float annualSalary;
+    private final float annualSalary;
 
     /**
      * Initates a fulltime employee with a profile and annual salary.
      *
      * @param employeeProfile Employee details
-     * @param annualSalary The amount of money they should be making in a year
+     * @param annualSalary    The amount of money they should be making in a year
      */
     public Fulltime(Profile employeeProfile, float annualSalary)
     {
         super(employeeProfile);
 
-        if( annualSalary < 0){
+        if ( annualSalary < 0 )
+        {
             throw new RuntimeException("Fulltime annual salary can not be negative");
         }
 
@@ -30,16 +31,18 @@ public class Fulltime extends Employee
 
     /**
      * Get the annual salary of this employee
+     *
      * @return Annual salary float
      */
-    public float getAnnualSalary(){
+    public float getAnnualSalary()
+    {
         return annualSalary;
     }
 
-	/**
-     * Calculates the payment for fulltime employees and saves it as 
-	 * the paymentAmount for the employee
-     *
+    /**
+     * Calculates the payment for fulltime employees and saves it as
+     * the paymentAmount for the employee
+     * <p>
      * Calculation based on annualSalary and two-week pay periods.
      */
     @Override
@@ -48,7 +51,7 @@ public class Fulltime extends Employee
         this.paymentAmount = annualSalary / SALARY_PERIOD;
     }
 
-	/**
+    /**
      * Converts a full time employee to a formatted one line string.
      * Format - profile::Payment Dollars::FULL TIME::Annual Salary Dollars
      *
@@ -61,7 +64,7 @@ public class Fulltime extends Employee
     }
 
 
-	/**
+    /**
      * Checks if the two employees are the same
      * Can check against any object, but will only work with the fulltime employee class.
      *

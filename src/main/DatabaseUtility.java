@@ -5,10 +5,23 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+/**
+ * Database exporting and importing functions.
+ *
+ * @author Alexander Xie
+ * @author Michael Nguyen
+ */
+
 public class DatabaseUtility
 {
-
-    public static void Import(File file, Company company){
+    /**
+     * Processes file and creates employees and inserts them into the specified company.
+     *
+     * @param file    - File to read employees from
+     * @param company - Already create company to import data into.
+     */
+    public static void Import(File file, Company company)
+    {
         Scanner fileReader;
         try
         {
@@ -21,20 +34,24 @@ public class DatabaseUtility
 
         int currentLine = 0;
 
-        while(fileReader.hasNextLine()){
+        while ( fileReader.hasNextLine() )
+        {
             currentLine++;
             String line = fileReader.nextLine();
 
-            try{
+            try
+            {
                 Employee newEmployee = Parse(line);
-                if(newEmployee == null){
-                    Controller.printError("Invalid employee line at " + currentLine + " - '"+line+"'");
+                if ( newEmployee == null )
+                {
+                    Controller.printError("Invalid employee line at " + currentLine + " - '" + line + "'");
                     fileReader.close();
                     return;
                 }
                 company.add(newEmployee);
-            }catch(Exception e){
-                Controller.printError("Exception - Invalid employee line at " + currentLine + " - '"+line+"'");
+            } catch ( Exception e )
+            {
+                Controller.printError("Exception - Invalid employee line at " + currentLine + " - '" + line + "'");
                 fileReader.close();
                 return;
             }
@@ -43,65 +60,82 @@ public class DatabaseUtility
         }
         fileReader.close();
 
-        Controller.print( "Successfully imported data!");
+        Controller.print("Successfully imported data!");
     }
 
-    public static Employee Parse(String line){
+    /**
+     * Parses the given string line and converts it from database format to a employee object
+     *
+     * @param line - "COMMAND_LETTER,NAME,COMPANYROLE,DATE,MONEY,ETC"
+     * @return The employee object generated from the given string
+     */
+    public static Employee Parse(String line)
+    {
         String[] tokens = line.split(",");
 
-        if(tokens.length < 5) return null;
+        if ( tokens.length < 5 ) return null;
 
         Date date = new Date(tokens[3]);
 
-        if(!date.isValid()) return null;
+        if ( !date.isValid() ) return null;
 
-        String name = tokens[1].replace(' ',',');
+        String name = tokens[1].replace(' ', ',');
         String[] nameTokens = name.split(",");
 
-        if(nameTokens.length > 1){
+        if ( nameTokens.length > 1 )
+        {
             name = "";
-            for(int i = 1; i < nameTokens.length; i++){
+            for ( int i = 1; i < nameTokens.length; i++ )
+            {
                 name += nameTokens[i] + ",";
             }
 
             name += nameTokens[0];
         }
 
-        Profile profile = new Profile(name, tokens[2], date );
-        if(!profile.isDepartmentValid() || !profile.isNameValid()) return null;
+        Profile profile = new Profile(name, tokens[2], date);
+        if ( !profile.isDepartmentValid() || !profile.isNameValid() ) return null;
 
 
-        switch(tokens[0]){
+        switch ( tokens[0] )
+        {
             case "P":
                 float hourlyRate = 0;
-                try{
+                try
+                {
                     hourlyRate = Float.parseFloat(tokens[4]);
-                }catch ( Exception e ){
+                } catch ( Exception e )
+                {
                     return null;
                 }
 
                 return new Parttime(profile, hourlyRate);
             case "F":
                 float salary = 0;
-                try{
+                try
+                {
                     salary = Float.parseFloat(tokens[4]);
-                }catch ( Exception e ){
+                } catch ( Exception e )
+                {
                     return null;
                 }
 
 
                 return new Fulltime(profile, salary);
             case "M":
-                if(tokens.length < 6){
+                if ( tokens.length < 6 )
+                {
                     return null;
                 }
 
                 float mSalary = 0;
-                int  mType = 0;
-                try{
+                int mType = 0;
+                try
+                {
                     mSalary = Float.parseFloat(tokens[4]);
                     mType = Integer.parseInt(tokens[5]);
-                }catch ( Exception e ){
+                } catch ( Exception e )
+                {
                     return null;
                 }
 
@@ -111,29 +145,41 @@ public class DatabaseUtility
         return null;
     }
 
-    public static void Export(File file, Company company){
-        if(!file.exists()){
-            try{
+    /**
+     * Converts the list of employees in company to string, and writes it into file.
+     * Overwrites any data.
+     *
+     * @param file    The file/location that it should write into.
+     * @param company The company containing all employees.
+     */
+    public static void Export(File file, Company company)
+    {
+        if ( !file.exists() )
+        {
+            try
+            {
                 file.createNewFile();
-            }catch(Exception e){
-                Controller.printError( "Failed to create new file");
+            } catch ( Exception e )
+            {
+                Controller.printError("Failed to create new file");
             }
         }
 
-        try{
+        try
+        {
             FileWriter fileWriter = new FileWriter(file, false);
 
             fileWriter.write(company.exportDatabase());
 
             fileWriter.flush();
             fileWriter.close();
-        }catch(Exception e){
-            Controller.printError( "Failed to write to file");
+        } catch ( Exception e )
+        {
+            Controller.printError("Failed to write to file");
         }
 
 
-
-        Controller.print( "Successfully exported!");
+        Controller.print("Successfully exported!");
     }
 
 }

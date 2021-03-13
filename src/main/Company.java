@@ -16,22 +16,22 @@ public class Company
     private final int GROWTH_AMOUNT = 4;
 
 
-	/**
+    /**
      * Initiates the Company with 0 employees and an empty employee list
      */
     public Company()
     {
         emplist = new Employee[0];
         numEmployee = 0;
-	}
-	
+    }
 
-	/**
+
+    /**
      * Finds an employee in the company's emplist
      *
-     * @param employee      Employee to find
-	 * @return 		the index of the employee in the emplist. 
-	 * 				returns -1 if the employee is not in the the emplist
+     * @param employee Employee to find
+     * @return the index of the employee in the emplist.
+     * returns -1 if the employee is not in the the emplist
      */
     private int find(Employee employee)
     {
@@ -48,8 +48,8 @@ public class Company
     }
 
 
-	/**
-     * Increases the size of emplist 
+    /**
+     * Increases the size of emplist
      */
     private void grow()
     {
@@ -63,13 +63,13 @@ public class Company
         emplist = increasedArr;
     }
 
-	/**
+    /**
      * Adds an employee to the emplist
      *
-     * @param employee        employee to be added to emplist
-	 * @return 		a boolean that indicates whether the employee was added to the emplist or not
-	 * 				true if the employee was added
-	 * 				false if the employee was not added
+     * @param employee employee to be added to emplist
+     * @return a boolean that indicates whether the employee was added to the emplist or not
+     * true if the employee was added
+     * false if the employee was not added
      */
     public boolean add(Employee employee)
     {
@@ -96,13 +96,13 @@ public class Company
     }
 
 
-	/**
+    /**
      * Removes an employee from the emplist
      *
-     * @param employee        employee to be removed from the emplist
-	 * @return 		a boolean that indicates whether the employee was removed from emplist
-	 * 				True if the employee was removed
-	 * 				False if the employee was not removed
+     * @param employee employee to be removed from the emplist
+     * @return a boolean that indicates whether the employee was removed from emplist
+     * True if the employee was removed
+     * False if the employee was not removed
      */
     public boolean remove(Employee employee)
     { //maintain the original sequence
@@ -126,13 +126,12 @@ public class Company
 
 
     /**
-     *
      * Set the hours for a parttime employee
      *
      * @param employee Employee must instance of Parttime, and have the hours already set.
      * @return a boolean that indicates whether the employee was found
-     * 	 * 				True if the employee was found and set
-     * 	 * 				False if the employee was not found
+     * * 				True if the employee was found and set
+     * * 				False if the employee was not found
      */
     public boolean setHours(Employee employee)
     {
@@ -156,7 +155,8 @@ public class Company
             return false;
         }
 
-        if(!(emplist[index] instanceof Parttime)){
+        if ( !(emplist[index] instanceof Parttime) )
+        {
             return false;
         }
 
@@ -171,10 +171,10 @@ public class Company
         return true;
     }
 
-	/**
-	 * Calculates the payment for each employee in the emplist
-	 * This works for full time, part time, and management employee
-	 */
+    /**
+     * Calculates the payment for each employee in the emplist
+     * This works for full time, part time, and management employee
+     */
     public void processPayments()
     {
         for ( int i = 0; i < numEmployee; i++ )
@@ -184,10 +184,10 @@ public class Company
     }
 
 
-	/**
+    /**
      * Sorts the emplist by department or by date
      *
-     * @param sortType      0 to sort by department, 1 to sort by date
+     * @param sortType 0 to sort by department, 1 to sort by date
      */
     private void sort(int sortType)
     {
@@ -230,10 +230,10 @@ public class Company
         }
 
 
-	}
-	
+    }
 
-	/**
+
+    /**
      * Prints data for all employees in emplist
      */
     private void printAll()
@@ -244,9 +244,9 @@ public class Company
         }
     }
 
-	/**
-     * Checks if there are employees to print data for 
-	 * If there is then it will print all data for all employees
+    /**
+     * Checks if there are employees to print data for
+     * If there is then it will print all data for all employees
      */
     public void print()
     {
@@ -261,7 +261,7 @@ public class Company
         printAll();
     }
 
-	/**
+    /**
      * Prints data for all employees ordered by department
      */
     public void printByDepartment()
@@ -279,7 +279,7 @@ public class Company
 
     }
 
-	/**
+    /**
      * Prints data for all employees ordered by dateHired
      */
     public void printByDate()
@@ -297,11 +297,11 @@ public class Company
 
     }
 
-	/**
+    /**
      * Checks if company has any employees
-	 * 
-	 * @return 		returns true if the company has 0 employees
-	 * 				otherwise it returns false
+     *
+     * @return returns true if the company has 0 employees
+     * otherwise it returns false
      */
     public boolean isEmpty()
     {
@@ -310,26 +310,32 @@ public class Company
 
     /**
      * Get the list of employees as String formatted for database consumption.
+     *
      * @return List of all employees as String
      */
-    public String exportDatabase(){
+    public String exportDatabase()
+    {
         String output = "";
 
-        for(int i = 0; i < numEmployee; i++){
+        for ( int i = 0; i < numEmployee; i++ )
+        {
             Employee employee = emplist[i];
 
-            if(employee instanceof Parttime){
+            if ( employee instanceof Parttime )
+            {
                 Profile profile = employee.getProfile();
-                output += "P," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() + "," + ((Parttime) employee).getHourlyRate();
-            }else if(employee instanceof Management){
+                output += "P," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() + "," + (( Parttime ) employee).getHourlyRate();
+            } else if ( employee instanceof Management )
+            {
                 Profile profile = employee.getProfile();
-                output += "M," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() +"," + ((Management) employee).getAnnualSalary() + "," + ((Management) employee).getRoleID();
-            }else if(employee instanceof Fulltime){
+                output += "M," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() + "," + (( Management ) employee).getAnnualSalary() + "," + (( Management ) employee).getRoleID();
+            } else if ( employee instanceof Fulltime )
+            {
                 Profile profile = employee.getProfile();
-                output += "F," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() + "," + ((Fulltime) employee).getAnnualSalary();
+                output += "F," + profile.getName() + "," + profile.getDepartment() + "," + profile.getDateHired().toString() + "," + (( Fulltime ) employee).getAnnualSalary();
             }
 
-            if(i + 1 < numEmployee) output += "\n";
+            if ( i + 1 < numEmployee ) output += "\n";
         }
 
         return output;

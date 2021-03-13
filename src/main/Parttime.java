@@ -9,7 +9,7 @@ package main;
 
 public class Parttime extends Employee
 {
-    private float hourlyRate;
+    private final float hourlyRate;
     private int hours;
 
     private final float OVERTIME_FACTOR = 1.5f;
@@ -20,13 +20,14 @@ public class Parttime extends Employee
      * Initiates parttime employee class with profile and the hourly rate for the part time.
      *
      * @param employeeProfile Employee profile
-     * @param hourlyRate Hourly rate this employee gets paid
+     * @param hourlyRate      Hourly rate this employee gets paid
      */
     public Parttime(Profile employeeProfile, float hourlyRate)
     {
         super(employeeProfile);
 
-        if( hourlyRate < 0){
+        if ( hourlyRate < 0 )
+        {
             throw new RuntimeException("Parttime hourly rate can not be negative");
         }
 
@@ -35,17 +36,19 @@ public class Parttime extends Employee
 
     /**
      * Get hourly rate of this parttime employee
+     *
      * @return Hourly rate in float value
      */
-    public float getHourlyRate(){
+    public float getHourlyRate()
+    {
         return hourlyRate;
     }
 
 
-	/**
-     * Calculates the payment for part time employees and saves it as 
-	 * the paymentAmount for the employee.
-     *
+    /**
+     * Calculates the payment for part time employees and saves it as
+     * the paymentAmount for the employee.
+     * <p>
      * Uses hours to determine pay amount.
      * For every hour until 80 hours payment is hours * hourlyRate
      * For every hour above 80 hours payment is hours * hourlyRate * 1.5f
@@ -53,7 +56,8 @@ public class Parttime extends Employee
     @Override
     public void calculatePayment()
     {
-        if( hours < 0 || hours > MAX_HOURS){
+        if ( hours < 0 || hours > MAX_HOURS )
+        {
             throw new RuntimeException("Parttime hours must be within 0 and 100");
         }
 
@@ -70,19 +74,19 @@ public class Parttime extends Employee
 
     }
 
-	/**
+    /**
      * Gets the hours from the Parttime Employee
      *
-     * @return  the hours the parttime employee worked
+     * @return the hours the parttime employee worked
      */
     public int getHours()
     {
         return hours;
     }
 
-	/**
+    /**
      * Sets the hours the part time employee worked
-	 * An employee cannot work over 100 hours or less than 0 hours
+     * An employee cannot work over 100 hours or less than 0 hours
      *
      * @param amountOfHours Hours that this employee has worked this pay period
      */
@@ -102,7 +106,7 @@ public class Parttime extends Employee
         this.hours = amountOfHours;
     }
 
-	/**
+    /**
      * Converts a part time employee to a formatted one line string.
      * Format - profile::Payment Dollars::PART TIME::Hourly Rate Dollars::Hours worked this period: hours
      *
@@ -115,7 +119,7 @@ public class Parttime extends Employee
     }
 
 
-	/**
+    /**
      * Checks if the two employees are the same
      * Can check against any object, but will only work with the part time employee class.
      *

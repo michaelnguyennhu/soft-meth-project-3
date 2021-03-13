@@ -12,6 +12,13 @@ import javafx.scene.control.RadioButton;
 
 import java.io.File;
 
+/**
+ * Controls the javafx scene.
+ *
+ * @author Alexander Xie
+ * @author Michael Nguyen
+ */
+
 public class Controller
 {
 
@@ -103,6 +110,11 @@ public class Controller
     @FXML
     private TextArea outputText;
 
+    /**
+     * Prints string with newline to text area.
+     *
+     * @param string - String to output
+     */
     public static void print(String string)
     {
         if ( _instance == null ) return;
@@ -118,6 +130,11 @@ public class Controller
         _instance.outputText.positionCaret(prevLength);
     }
 
+    /**
+     * Prints string with newline to text are prepended with "Error: "
+     *
+     * @param string - String to output
+     */
     public static void printError(String string)
     {
         if ( _instance == null ) return;
@@ -132,6 +149,12 @@ public class Controller
         _instance.outputText.positionCaret(prevLength);
     }
 
+    /**
+     * Sets up the different panels for the program.
+     *
+     * @param primaryStage - Stage for the fx.
+     * @throws Exception
+     */
     public void start(Stage primaryStage) throws Exception
     {
         company = new Company();
@@ -147,12 +170,17 @@ public class Controller
         hoursWorkedPane.setVisible(false);
     }
 
+    /**
+     * Closes the primary stage
+     */
     public void quit()
     {
         primaryStage.close();
     }
 
-    //first select button action event
+    /**
+     * The first stage of selections that user can make (add/remove/set)
+     */
     public void firstChoice()
     {
         try
@@ -211,7 +239,9 @@ public class Controller
         }
     }
 
-    //action event for department choice
+    /**
+     * Action when department choice is required
+     */
     public void departmentChoice()
     {
         try
@@ -242,7 +272,9 @@ public class Controller
         }
     }
 
-    //action event for basic info e.g. name and date
+    /**
+     * Action to set up for basic info retrieval of the user.
+     */
     public void basicInfoContinue()
     {
         try
@@ -258,10 +290,11 @@ public class Controller
                 {
                     basicInfo.setVisible(false);
                     employee = new Employee(profile);
-                    if (company.remove(employee)){
+                    if ( company.remove(employee) )
+                    {
                         print("Employee was removed");
-                    }
-                    else {
+                    } else
+                    {
                         print("Employee could not be removed");
                     }
                     basicInfo.setVisible(false);
@@ -291,7 +324,9 @@ public class Controller
 
     }
 
-    //action event to choose which type of employee to add
+    /**
+     * Displays the panel after employee type is selected
+     */
     public void addChoice()
     {
         try
@@ -321,7 +356,9 @@ public class Controller
         }
     }
 
-    //action event to set the hourly rate of a part time worker and add the employee to the company
+    /**
+     * Action event to set the hourly rate of a part time worker and add the employee to the company
+     */
     public void setHourlyRate()
     {
         try
@@ -348,7 +385,6 @@ public class Controller
                 print("Parttime employee added");
 
 
-
             }
         } catch ( Exception e )
         {
@@ -356,7 +392,9 @@ public class Controller
         }
     }
 
-    //action event to select management type
+    /**
+     * Action event to select management type
+     */
     public void selectManagement()
     {
         try
@@ -386,15 +424,18 @@ public class Controller
         }
     }
 
-    //action event to set the salary for a full time worker
+    /**
+     * Action event to set the salary for a full time worker
+     */
     public void setSalary()
     {
         try
         {
-            try {
+            try
+            {
                 salary = Float.parseFloat(salaryField.getText());
-            }
-            catch (Exception e){
+            } catch ( Exception e )
+            {
                 print("Salary must be a number");
                 return;
             }
@@ -415,17 +456,19 @@ public class Controller
                 salaryField.clear();
                 salaryPane.setVisible(false);
                 firstSet.setVisible(true);
-                if (isManagement == false){
+                if ( isManagement == false )
+                {
                     print("Fulltime employee added");
-                }
-                else {
-                    if (managementType == MANAGER){
+                } else
+                {
+                    if ( managementType == MANAGER )
+                    {
                         print("Manager added");
-                    }
-                    else if (managementType == DEPARTMENT_HEAD){
+                    } else if ( managementType == DEPARTMENT_HEAD )
+                    {
                         print("Department head added");
-                    }
-                    else if (managementType == DIRECTOR){
+                    } else if ( managementType == DIRECTOR )
+                    {
                         print("Director added");
                     }
                 }
@@ -436,15 +479,19 @@ public class Controller
         }
     }
 
+    /**
+     * Action event for setting hours of a part time employee
+     */
     public void setHours()
     {
         try
         {
             int hours;
-            try {
+            try
+            {
                 hours = Integer.parseInt(hoursField.getText());
-            }
-            catch (Exception e){
+            } catch ( Exception e )
+            {
                 print("Hours must be a number");
                 return;
             }
@@ -471,6 +518,9 @@ public class Controller
         }
     }
 
+    /**
+     * Prints all the employees to text area
+     */
     public void printEmployees()
     {
         try
@@ -482,6 +532,9 @@ public class Controller
         }
     }
 
+    /**
+     * Prints all the employees sorted by department to the text area.
+     */
     public void printByDepartment()
     {
         try
@@ -493,6 +546,9 @@ public class Controller
         }
     }
 
+    /**
+     * Prints all the employees sorted by date to the text area.
+     */
     public void printByDate()
     {
         try
@@ -504,6 +560,11 @@ public class Controller
         }
     }
 
+    /**
+     * Imports the database using database utility and file chooser
+     *
+     * @param action - Used to grab stage to show filechooser
+     */
     public void importDatabase(ActionEvent action)
     {
         try
@@ -527,6 +588,11 @@ public class Controller
         }
     }
 
+    /**
+     * Exports the database using database utility and file chooser
+     *
+     * @param action - Used to grab stage to show filechooser
+     */
     public void exportDatabase(ActionEvent action)
     {
         try

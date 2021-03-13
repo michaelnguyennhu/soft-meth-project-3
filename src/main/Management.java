@@ -15,7 +15,7 @@ public class Management extends Fulltime
     private static final int DIRECTOR = 3;
 
     private static final float MANAGER_COMPENSATION = 5000.0f / 26.0f;
-    private static final float DEPARTMENT_HEAD_COMPENSATION =  9500.0f / 26.0f;
+    private static final float DEPARTMENT_HEAD_COMPENSATION = 9500.0f / 26.0f;
     private static final float DIRECTOR_COMPENSATION = 12000.0f / 26.0f;
 
     private final int role;
@@ -24,8 +24,8 @@ public class Management extends Fulltime
      * Initiates management employee with their profile, annual salary, and their management role.
      *
      * @param employeeProfile Employee profile
-     * @param annualSalary Annual Salary
-     * @param managementRole Role (1, 2, 3) - (Manager, Department Head, Director)
+     * @param annualSalary    Annual Salary
+     * @param managementRole  Role (1, 2, 3) - (Manager, Department Head, Director)
      */
     public Management(Profile employeeProfile, float annualSalary, int managementRole)
     {
@@ -40,14 +40,15 @@ public class Management extends Fulltime
      *
      * @return ID of manager, 1-3
      */
-    public int getRoleID(){
+    public int getRoleID()
+    {
         return role;
     }
 
     /**
      * Calculates the payment based on a fulltime salary with management compensation added.
      * Saves it into paymentAmount
-     *
+     * <p>
      * Overrides fulltime's calculate payment
      */
     @Override
@@ -59,6 +60,7 @@ public class Management extends Fulltime
 
     /**
      * Get the compensation based on manager role type
+     *
      * @return Amount of money for compensation
      */
     private float getCompensation()
@@ -81,7 +83,7 @@ public class Management extends Fulltime
     /**
      * Gets the Role of a management employee as a String
      *
-     * @return 		a String containing the role of the management employee
+     * @return a String containing the role of the management employee
      */
     private String getRoleName()
     {
