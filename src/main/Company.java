@@ -1,6 +1,4 @@
-package sample;
-
-import javax.naming.ldap.Control;
+package main;
 
 /**
  * Manages and stores all supplied employees

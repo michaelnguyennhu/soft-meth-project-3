@@ -1,4 +1,4 @@
-package sample;
+package main;
 
 /**
  * Based on employee class. Specifies management employee
@@ -14,6 +14,10 @@ public class Management extends Fulltime
     private static final int DEPARTMENT_HEAD = 2;
     private static final int DIRECTOR = 3;
 
+    private static final float MANAGER_COMPENSATION = 5000.0f / 26.0f;
+    private static final float DEPARTMENT_HEAD_COMPENSATION =  9500.0f / 26.0f;
+    private static final float DIRECTOR_COMPENSATION = 12000.0f / 26.0f;
+
     private final int role;
 
     /**
@@ -28,15 +32,6 @@ public class Management extends Fulltime
         super(employeeProfile, annualSalary);
 
         this.role = managementRole;
-    }
-
-    /**
-     * Get the role id of this management.
-     *
-     * @return ID of manager, 1-3
-     */
-    public int getRoleID(){
-        return role;
     }
 
     /**
@@ -58,21 +53,21 @@ public class Management extends Fulltime
         switch ( role )
         {
             case MANAGER:
-                return 5000.0f / 26.0f;
+                return MANAGER_COMPENSATION;
             case DEPARTMENT_HEAD:
-                return 9500.0f / 26.0f;
+                return DEPARTMENT_HEAD_COMPENSATION;
             case DIRECTOR:
-                return 12000.0f / 26.0f;
+                return DIRECTOR_COMPENSATION;
         }
 
         throw new RuntimeException("Invalid role specified. Tried to get compensation but failed.");
     }
 
 
-	/**
+    /**
      * Gets the Role of a management employee as a String
-	 * 
-	 * @return 		a String containing the role of the management employee
+     *
+     * @return 		a String containing the role of the management employee
      */
     private String getRoleName()
     {
@@ -90,7 +85,7 @@ public class Management extends Fulltime
     }
 
 
-	/**
+    /**
      * Converts a management employee to a formatted one line string.
      * Format - profile::Payment Dollars::FULL TIME::Annual Salary Dollars::RoleName Compensation Dollars
      *
@@ -102,7 +97,7 @@ public class Management extends Fulltime
         return super.toString() + "::" + getRoleName() + " Compensation " + toDollars(getCompensation());
     }
 
-	/**
+    /**
      * Checks if the two employees are the same
      * Can check against any object, but will only work with the management employee class.
      *

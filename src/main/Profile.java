@@ -1,4 +1,4 @@
-package sample;
+package main;
 
 /**
  * Contains data that defines an employee. Name, department, date hired.

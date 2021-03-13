@@ -1,6 +1,4 @@
-package sample;
-
-import javafx.scene.control.Control;
+package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +33,7 @@ public class DatabaseUtility
                 }
                 company.add(newEmployee);
             }catch(Exception e){
-                Controller.printError("Invalid employee line at " + currentLine + " - '"+line+"'");
+                Controller.printError("Exception - Invalid employee line at " + currentLine + " - '"+line+"'");
                 return;
             }
 
@@ -55,7 +53,7 @@ public class DatabaseUtility
         if(!date.isValid()) return null;
 
         Profile profile = new Profile(tokens[1], tokens[2], date );
-        if(!profile.isDepartmentValid() || !profile.isNameValid()) return null;
+        if(!profile.isDepartmentValid()) return null;
 
 
         switch(tokens[0]){
@@ -94,6 +92,7 @@ public class DatabaseUtility
 
                 return new Management(profile, mSalary, mType);
         }
+        Controller.printError("Failed 1");
         return null;
     }
 

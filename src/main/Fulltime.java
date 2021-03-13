@@ -1,4 +1,4 @@
-package sample;
+package main;
 
 /**
  * Based on employee class. Specifies fulltime employee
