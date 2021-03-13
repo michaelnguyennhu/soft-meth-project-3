@@ -400,7 +400,7 @@ public class Controller
             }
             if ( salary < 0 )
             {
-                print("Fulltime annual salary cannot be negative");
+                print("Annual salary cannot be negative");
             } else
             {
                 if ( isManagement == false )
@@ -463,7 +463,7 @@ public class Controller
                 hoursWorkedPane.setVisible(false);
                 firstSet.setVisible(true);
 
-
+                print("Hours set to " + hours);
             }
         } catch ( Exception e )
         {
