@@ -122,6 +122,7 @@ public class Controller
         _instance.currentOutput += string;
         _instance.outputText.setText(_instance.currentOutput);
         _instance.outputText.positionCaret(_instance.outputText.getLength());
+        _instance.outputText.setScrollLeft(0);
     }
 
     public static void printError(String string)
